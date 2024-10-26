@@ -6,15 +6,11 @@ import android.view.View.OnClickListener
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity(), OnClickListener {
-    private val DOLAR_VALUE = 4.5
-
-    private lateinit var input: EditText
+    private lateinit var valueInput: EditText
+    private lateinit var priceInput: EditText
     private lateinit var toRealBtn: Button
     private lateinit var toDolarBtn: Button
     private lateinit var resultText: TextView
@@ -22,37 +18,66 @@ class MainActivity : AppCompatActivity(), OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setComponentsById()
+        setClicksHandler()
+    }
 
-        this.input = findViewById(R.id.valueInput)
+    private fun setComponentsById() {
+        this.valueInput = findViewById(R.id.valueInput)
+        this.priceInput = findViewById(R.id.priceInput)
         this.toRealBtn = findViewById(R.id.toRealBtn)
         this.toDolarBtn = findViewById(R.id.toDolarBtn)
         this.resultText = findViewById(R.id.resultText)
+    }
 
+    private fun setClicksHandler() {
         this.toRealBtn.setOnClickListener(this)
         this.toDolarBtn.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
-        val value = input.getText().toString().toDoubleOrNull() ?: 0.0
-        var resultMessage = String()
-
         if (v == toDolarBtn) {
-            val valueInDolar = convertToDolar(value)
-            resultMessage = "U$ ${valueInDolar}"
+            displayDolarConversion()
         }
         else if (v == toRealBtn) {
-            val valueInReal = convertToReal(value);
-            resultMessage = "R$ ${valueInReal}"
+            displayRealConversion()
+        }
+    }
+
+    private fun displayDolarConversion() {
+        val value = getValue()
+        var dolarValue = convertToDolar(value)
+
+        if (dolarValue.isNaN() || dolarValue.isInfinite()) {
+            dolarValue = 0.0
         }
 
-        resultText.text = resultMessage
+        display("U$ $dolarValue")
+    }
+
+    private fun displayRealConversion() {
+        val value = getValue()
+        val realValue = convertToReal(value)
+        display("U$ $realValue")
+    }
+
+    private fun display(message: String) {
+        resultText.text = message
+    }
+
+    private fun getValue(): Double {
+        return valueInput.text.toString().toDoubleOrNull() ?: 0.0
+    }
+
+    private fun getPrice(): Double {
+        return priceInput.text.toString().toDoubleOrNull() ?: 0.0
     }
 
     private fun convertToDolar(value: Double): Double {
-        return value / DOLAR_VALUE
+        return value / getPrice()
     }
 
     private fun convertToReal(value: Double): Double {
-        return value * DOLAR_VALUE
+        return value * getPrice()
     }
 }

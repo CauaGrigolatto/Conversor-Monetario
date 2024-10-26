@@ -6,15 +6,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="10dp"
     tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Valor:"
+        android:textAlignment="textStart"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:hint="Digite o valor"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/valueInput"
+        android:textSize="20dp"
+        android:inputType="numberDecimal"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Cotação:"
+        android:textAlignment="textStart"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:hint="Digite a cotação"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="5.0"
+        android:id="@+id/priceInput"
         android:textSize="20dp"
         android:inputType="numberDecimal"/>
 
@@ -47,6 +77,8 @@
         android:layout_height="wrap_content"
         android:text="Valor convertido"
         android:textAlignment="center"
+        android:layout_marginTop="30dp"
+        android:textSize="20sp"
         android:textStyle="bold"/>
 
     <TextView
