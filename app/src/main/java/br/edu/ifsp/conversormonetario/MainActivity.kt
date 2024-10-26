@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
     private fun displayRealConversion() {
         val value = getValue()
         val realValue = convertToReal(value)
-        display("U$ $realValue")
+        display("R$ $realValue")
     }
 
     private fun display(message: String) {
